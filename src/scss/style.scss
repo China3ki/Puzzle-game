@@ -1,4 +1,47 @@
 * {
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background-color: #12294d;
+}
+.title{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    font-size: 30px;
+    font-weight: 700;
+    border-bottom: 5px solid white;
+    color: white;
+}
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    .main__options {
+        display: flex;
+        flex-direction: column;
+        gap:20px;
+        .option__button{
+            font-size: 40px;
+            font-weight: 700;
+            // color: white;
+            background-color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            transition: all .5s;
+        }
+        .option__button:hover {
+            background-color: transparent;
+            color: white;
+        }
+    }
+    canvas {
+        border: 10px solid white;
+    }
 }
