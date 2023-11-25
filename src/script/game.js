@@ -3,6 +3,7 @@ export class Game {
     this.canvas = '';
     this.ctx = '';
     this.main = main;
+    // this.
   }
 
   init() {
@@ -15,45 +16,60 @@ export class Game {
     this.drawImage();
   }
 
-  drawImage() {
+  async drawImage() {
     const randomImage = Math.floor(Math.random() * 1);
     const image = new Image();
     image.src = `images/img${randomImage}.jpg`;
 
     image.onload = () => {
-      //   this.ctx.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
     };
 
-    // setTimeout(() => {
-    //   this.cutImage(image);
-    // }, 3000);
-    this.cutImage(image);
+    setTimeout(() => {
+      this.cutImage(image.src);
+    }, 3000);
   }
 
-  cutImage(image) {
-    // let posY = 0;
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    const cuttedImage = new Image();
-    cuttedImage.src = image.src;
-    console.log(cuttedImage.width);
-    createImageBitmap(cuttedImage, {
+  async cutImage(src) {
+    const orignalImage = new Image();
+    orignalImage.src = src;
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    const cropImage = await createImageBitmap(orignalImage, {
       resizeWidth: 900,
       resizeHeight: 600,
       resizeQuality: 'high',
-    }).then((ImageBitmap) => {
-      cuttedImage.onload = () => {
-        let posX = 0;
-        for (let x = 0; x <= 9; x++) {
-          let posY = 0;
-          for (let y = 0; y <= 6; y++) {
-            this.ctx.drawImage(ImageBitmap, posX, posY, 100, 100, posX, posY, 100, 100);
-            this.ctx.strokeRect(posX, posY, 100, 100);
-            posY += 100;
-          }
-
-          posX += 100;
-        }
-      };
     });
+    const cord = [];
+    for (let x = 0; x < 9; x++) {
+      for (let y = 0; y < 6; y++) {
+        this.ctx.strokeRect(x * 100, y * 100, 100, 100);
+        cord.push([x * 100, y * 100]);
+      }
+    }
+    const duplicateCord = [...cord];
+
+    const cordLength = cord.length;
+    for (let i = 0; i < cordLength; i++) {
+      const randCord = Math.floor(Math.random() * cord.length);
+      const randPlace = Math.floor(Math.random() * cord.length);
+
+      this.ctx.drawImage(
+        cropImage,
+        cord[randCord][0],
+        cord[randCord][1],
+        100,
+        100,
+        duplicateCord[randPlace][0],
+        duplicateCord[randPlace][1],
+        100,
+        100
+      );
+      this.ctx.rect(cord[randCord][0], cord[randCord][1], 100, 100);
+      this.ctx.stroke();
+      this.ctx.lineWidth = 2;
+      cord.splice(randCord, 1);
+      duplicateCord.splice(randPlace, 1);
+    }
   }
 }

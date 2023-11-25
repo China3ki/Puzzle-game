@@ -15,6 +15,7 @@ class App {
 
   changeScenerio(e) {
     const scene = e.target.dataset.scenerio;
+
     switch (scene) {
       case 'game-random':
         this.game.init();
