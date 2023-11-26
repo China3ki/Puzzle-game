@@ -25,6 +25,39 @@ body {
   align-items: center;
   height: 80%;
 }
+.main .complete {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 25px;
+  border: solid black 1px;
+}
+.main .complete .complete__header {
+  font-size: 40px;
+}
+.main .complete .complete__time {
+  font-size: 25px;
+}
+.main .complete .complete__buttons {
+  display: flex;
+  gap: 30px;
+}
+.main .complete .complete__buttons button {
+  padding: 10px;
+  font-weight: 600;
+  font-size: medium;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+.main .complete .complete__buttons button:hover {
+  background-color: #12294d;
+  color: white;
+}
 .main .main__options {
   display: flex;
   flex-direction: column;

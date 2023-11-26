@@ -51,6 +51,7 @@ export class Game {
       }
     }
     const duplicateCord = [...cord];
+
     const changedCord = [];
     const changedPlace = [];
     const cordLength = cord.length;
@@ -78,6 +79,7 @@ export class Game {
       cord.splice(randCord, 1);
       duplicateCord.splice(randPlace, 1);
     }
-    this.move.init(this.canvas, this.ctx, changedCord, changedPlace, cord, cropImage);
+
+    this.move.init(this.canvas, this.ctx, changedCord, changedPlace, changedCord, cropImage);
   }
 }

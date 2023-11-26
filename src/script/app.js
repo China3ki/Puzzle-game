@@ -1,6 +1,6 @@
 import { Game } from './game.js';
 
-class App {
+export class App {
   constructor(menu) {
     this.menuValues = menu;
     this.main = document.querySelector('.main');
@@ -20,6 +20,15 @@ class App {
       case 'game-random':
         this.game.init();
         break;
+      case 'menu':
+        this.main.replaceChildren();
+        this.main.insertAdjacentHTML(
+          'afterbegin',
+          `<div class="main__options">
+      <button data-scenerio="game-random" class="option__button ">Losuj obrazek</button>
+      <button class="option__button">Wybierz obrazek</button>
+      </div>`
+        );
       default:
     }
   }
