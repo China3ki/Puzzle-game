@@ -1,9 +1,11 @@
+import { Move } from './move.js';
+
 export class Game {
   constructor(main) {
     this.canvas = '';
     this.ctx = '';
     this.main = main;
-    // this.
+    this.move = new Move();
   }
 
   init() {
@@ -17,7 +19,7 @@ export class Game {
   }
 
   async drawImage() {
-    const randomImage = Math.floor(Math.random() * 1);
+    const randomImage = Math.floor(Math.random() * 2);
     const image = new Image();
     image.src = `images/img${randomImage}.jpg`;
 
@@ -28,6 +30,7 @@ export class Game {
     setTimeout(() => {
       this.cutImage(image.src);
     }, 3000);
+    // this.cutImage(image.src);
   }
 
   async cutImage(src) {
@@ -48,7 +51,8 @@ export class Game {
       }
     }
     const duplicateCord = [...cord];
-
+    const changedCord = [];
+    const changedPlace = [];
     const cordLength = cord.length;
     for (let i = 0; i < cordLength; i++) {
       const randCord = Math.floor(Math.random() * cord.length);
@@ -65,11 +69,15 @@ export class Game {
         100,
         100
       );
+      changedCord.push([cord[randCord][0], cord[randCord][1]]);
+      changedPlace.push([duplicateCord[randPlace][0], duplicateCord[randPlace][1]]);
+
       this.ctx.rect(cord[randCord][0], cord[randCord][1], 100, 100);
       this.ctx.stroke();
       this.ctx.lineWidth = 2;
       cord.splice(randCord, 1);
       duplicateCord.splice(randPlace, 1);
     }
+    this.move.init(this.canvas, this.ctx, changedCord, changedPlace, cord, cropImage);
   }
 }
